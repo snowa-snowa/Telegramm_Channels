@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .form-container {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #000;
+    width: 500px;  /* Увеличенная ширина */
+    text-align: center;
+    border: 1px solid #333;
+  }
+
+  .form-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #fff;
+  }
+
+  .form-container form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-container input {
+    background: #2c2c2c;
+    border: none;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  .form-container button {
+    background-color: #616161;  /* Серый цвет */
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  .form-container button:hover {
+    background-color: #424242;  /* Темно-серый при наведении */
+  }
+
+  .form-container a {
+    color: #90caf9;
+    display: block;
+    margin-top: 15px;
+    font-size: 1rem;
+  }
+
+  .form-container a:hover {
+    text-decoration: underline;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="form-container">
+    <h2>Вход</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Войти</button>
+    </form>
+    <a href="{% url 'chat:signup' %}">Нет аккаунта?</a>
+  </div>
+{% endblock %}
