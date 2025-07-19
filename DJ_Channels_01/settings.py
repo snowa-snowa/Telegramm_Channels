@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-*dbztqhomwl+__h3ve+)l)$3qw@l$e5_3^90tk_=p3608hf2ft
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
 
+CSRF_TRUSTED_ORIGINS = ['telegramm-channels.onrender.com']
 
 # Application definition
 
@@ -93,6 +94,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+# DATABASES['default'] = dj_database_url.parse('')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
