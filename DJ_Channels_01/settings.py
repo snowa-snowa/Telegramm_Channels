@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-*dbztqhomwl+__h3ve+)l)$3qw@l$e5_3^90tk_=p3608hf2ft
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['telegramm-channels.onrender.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://telegramm-channels.onrender.com']
 
