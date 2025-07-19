@@ -11,21 +11,19 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+import dj_database_url
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# Определение базового каталога
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-*dbztqhomwl+__h3ve+)l)$3qw@l$e5_3^90tk_=p3608hf2ft'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['telegramm-channels.onrender.com']
+# Загрузка переменных среды из файла .env
+load_dotenv(dotenv_path=BASE_DIR / '.env')
 
 CSRF_TRUSTED_ORIGINS = ['https://telegramm-channels.onrender.com']
 
@@ -84,17 +82,20 @@ ASGI_APPLICATION = 'DJ_Channels_01.asgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'DJ_Channels_01_03',
-        'USER': 'postgres',
-        'PASSWORD': 'sssnowa8snowaaa',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'DJ_Channels_01_03',
+#         'USER': 'postgres',
+#         'PASSWORD': 'sssnowa8snowaaa',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
 # DATABASES['default'] = dj_database_url.parse('')
+DATABASES = {
+    'default': dj_database_url.config(conn_max_age=600, ssl_require=True),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -118,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'Asia/Tashkent'
 
