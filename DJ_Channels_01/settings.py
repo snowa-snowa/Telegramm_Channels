@@ -15,17 +15,35 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 
-SECRET_KEY = os.getenv('SECRET_KEY')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
-
-# Определение базового каталога
 BASE_DIR = Path(__file__).resolve().parent.parent
+# Только для локальной разработки, если .env лежит рядом с manage.py
+load_dotenv(BASE_DIR / '.env')
 
-# Загрузка переменных среды из файла .env
-load_dotenv(dotenv_path=BASE_DIR / '.env')
+# SECRET_KEY = os.getenv('SECRET_KEY')
+# DEBUG = os.getenv('DEBUG', 'False') == 'True'
+#
+# # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+# ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
+
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG      = os.getenv('DEBUG', 'False') == 'True'
+
+# Парсим ALLOWED_HOSTS из запятой-разделённой строки
+hosts = os.getenv('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [h.strip() for h in hosts.split(',') if h.strip()]
+
+# Подключение к БД через dj_database_url
+import dj_database_url
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    ),
+}
+
+
 
 CSRF_TRUSTED_ORIGINS = ['https://telegramm-channels.onrender.com']
 
@@ -98,13 +116,13 @@ ASGI_APPLICATION = 'DJ_Channels_01.asgi.application'
 # DATABASES = {
 #     'default': dj_database_url.config(conn_max_age=600, ssl_require=True),
 # }
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True
-    ),
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.getenv('DATABASE_URL'),
+#         conn_max_age=600,
+#         ssl_require=True
+#     ),
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
