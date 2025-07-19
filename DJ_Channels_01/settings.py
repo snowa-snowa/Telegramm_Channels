@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = ['telegramm-channels.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://telegramm-channels.onrender.com']
 
 # Application definition
 
