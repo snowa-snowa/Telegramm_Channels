@@ -17,7 +17,9 @@ import dj_database_url
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+
+# ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
 
 # Определение базового каталога
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -93,8 +95,15 @@ ASGI_APPLICATION = 'DJ_Channels_01.asgi.application'
 #     }
 # }
 # DATABASES['default'] = dj_database_url.parse('')
+# DATABASES = {
+#     'default': dj_database_url.config(conn_max_age=600, ssl_require=True),
+# }
 DATABASES = {
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True),
+    'default': dj_database_url.config(
+        default=os.getenv('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    ),
 }
 
 # Password validation
