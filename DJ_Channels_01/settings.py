@@ -24,14 +24,14 @@ load_dotenv(BASE_DIR / '.env')
 # DEBUG = os.getenv('DEBUG', 'False') == 'True'
 #
 # # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-# ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['telegramm-channels.onrender.com', '127.0.0.1', 'localhost']
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG      = os.getenv('DEBUG', 'False') == 'True'
 
 # Парсим ALLOWED_HOSTS из запятой-разделённой строки
-hosts = os.getenv('ALLOWED_HOSTS', '')
-ALLOWED_HOSTS = [h.strip() for h in hosts.split(',') if h.strip()]
+# hosts = os.getenv('ALLOWED_HOSTS', '')
+# ALLOWED_HOSTS = [h.strip() for h in hosts.split(',') if h.strip()]
 
 # Подключение к БД через dj_database_url
 import dj_database_url
@@ -42,7 +42,6 @@ DATABASES = {
         ssl_require=True
     ),
 }
-
 
 
 CSRF_TRUSTED_ORIGINS = ['https://telegramm-channels.onrender.com']
