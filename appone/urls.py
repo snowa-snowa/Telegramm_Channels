@@ -15,4 +15,10 @@ urlpatterns = [
     path('signup/', SignupView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutConfirmationView.as_view(), name='logout'),
+
+    path('profile/', views.profile_view, name='profile'),
+    path('users/', views.users_list, name='users_list'),
+    path('users/<str:username>/', views.user_detail, name='user_detail'),
+
+    path('settings/', views.settings_view, name='settings'),
 ]

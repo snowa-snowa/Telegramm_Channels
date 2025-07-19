@@ -1,92 +1,106 @@
 {% extends 'base.html' %}
-
 {% block title %}Регистрация{% endblock %}
 
 {% block extra_css %}
 <style>
-    .form-container {
-        max-width: 400px;
-        background-color: #1e1e2f;
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        margin: auto;
-        margin-top: 2rem;
-    }
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* отключаем скролл */
+    background-color: #0f0f11;
+  }
+  .form-container {
+    background-color: #1e1e2f;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    width: 420px;
+    max-width: 90%;
+    margin: auto;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #f8f9fa;
+    font-size: 1.75rem;
+  }
+  .form-group label {
+    color: #e1e1e1;
+    font-weight: 600;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    background: #23272a;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+  }
+  .form-group input::placeholder {
+    color: #888;
+  }
+  .form-group input:focus {
+    outline: none;
+    border-color: #5865f2;
+    box-shadow: none;
+    background: #23272a;
+    color: #fff;
+  }
 
-    .form-container h2 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #f8f9fa;
-    }
-
-    .form-container input {
-        background: #2b2b3d;
-        border: 1px solid #444;
-        color: #f1f1f1;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 5px;
-        width: 100%;
-    }
-
-    .form-container input:focus {
-        background: #2b2b3d;
-        box-shadow: none;
-        border-color: #0d6efd;
-    }
-
-    .form-container button {
-        background-color: #0069d9;
-        border: none;
-        padding: 10px;
-        color: white;
-        font-size: 16px;
-        border-radius: 5px;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .form-container button:hover {
-        background-color: #0056b3;
-    }
-
-    .form-container a {
-        color: #90caf9;
-        text-align: center;
-        display: block;
-        margin-top: 15px;
-    }
-
-    .form-container a:hover {
-        text-decoration: underline;
-    }
-
-    .form-group {
-        margin-bottom: 1rem;
-    }
+  .btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background-color: #ffffff;
+    color: #0f0f11;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="form-container">
-    <h2>Регистрация</h2>
-<form method="post">
+<div class="form-container" style="max-width: 900px; margin: 10px auto 50px; padding: 2rem; background-color: var(--bg); color: var(--fg); border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,1);">
+  <h2>Регистрация</h2>
+  <form method="post" novalidate>
     {% csrf_token %}
     <div class="form-group">
-        <label for="{{ form.username.id_for_label }}">Username</label>
-        {{ form.username }}
+      <label for="{{ form.username.id_for_label }}">Имя пользователя</label>
+      {{ form.username }}
+      {% if form.username.errors %}
+        <div class="text-danger small">{{ form.username.errors|striptags }}</div>
+      {% endif %}
     </div>
     <div class="form-group">
-        <label for="{{ form.password1.id_for_label }}">Password</label>
-        {{ form.password1 }}
+      <label for="{{ form.password1.id_for_label }}">Пароль</label>
+      {{ form.password1 }}
+      {% if form.password1.errors %}
+        <div class="text-danger small">{{ form.password1.errors|striptags }}</div>
+      {% endif %}
     </div>
     <div class="form-group">
-        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-        {{ form.password2 }}
+      <label for="{{ form.password2.id_for_label }}">Подтвердите пароль</label>
+      {{ form.password2 }}
+      {% if form.password2.errors %}
+        <div class="text-danger small">{{ form.password2.errors|striptags }}</div>
+      {% endif %}
     </div>
-    <button type="submit" class="btn btn-success">Зарегистрироваться</button>
-</form>
-    <a href="/login/">Уже есть аккаунт?</a>
+    <button type="submit" class="btn btn-secondary">Зарегистрироваться</button>
+    <a href="{% url 'chat:login' %}" class="btn btn-secondary">Войти</a>
+  </form>
 </div>
 {% endblock %}

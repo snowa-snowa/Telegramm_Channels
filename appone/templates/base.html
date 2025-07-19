@@ -9,6 +9,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@5.15.4/css/all.min.css">
   <!-- Custom Styles -->
   <style>
+
+
+    :root[data-theme="dark"] {
+      --bg: #1e1e2f;
+      --fg: #f8f9fa;
+    }
+    :root[data-theme="light"] {
+      --bg: #f8f9fa;
+      --fg: #121212;
+    }
+    body { background: var(--bg); color: var(--fg); }
+
     body {
       background-color: #121212;
       color: #f1f1f1;
@@ -20,24 +32,17 @@
     }
 
     .navbar-brand, .nav-link {
+      font-weight: bold;
       color: #fff !important;
       transition: color 0.3s;
     }
 
     .navbar-brand:hover, .nav-link:hover {
-      color: #f0a500 !important;
+      color: #d63384 !important;
     }
 
     .navbar-toggler-icon {
       background-color: #fff;
-    }
-
-    .nav-item {
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .nav-item:hover {
-      transform: scale(1.1);
     }
 
     .btn {
@@ -74,19 +79,22 @@
     .sidebar a {
       padding: 10px 15px;
       text-decoration: none;
-      font-size: 18px;
       color: #ddd;
       display: block;
       transition: background-color 0.3s;
+      font-size: 1.3rem;
+      font-weight: bold;
     }
 
     .sidebar a:hover {
       background-color: #575757;
-      color: #f1f1f1;
+      color: #d63384 !important;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     .sidebar .nav-item {
       margin-bottom: 10px;
+
     }
 
     /* Контент */
@@ -138,31 +146,24 @@
   <!-- Навбар -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="z-index: 1030;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">Telegram Clone</a>
+      <a class="navbar-brand">Мессенджер</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <span class="nav-link">{{ request.user.username }}</span>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'chat:conversations_list' %}">Беседы</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'chat:logout' %}">Выход</a>
+            <span class="nav-link" id="current-time"></span>
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
   <!-- Сайдбар -->
   <div class="sidebar" id="sidebar">
-    <a href="{% url 'chat:conversations_list' %}"><i class="fas fa-comments"></i> Беседы</a>
-    <a href="/"><i class="fas fa-user"></i> Профиль</a>
-    <a href="/"><i class="fas fa-cogs"></i> Настройки</a>
+    <a href="{% url 'chat:conversations_list' %}"><i class="fas fa-comments"></i> Чаты</a>
+    <a href="/profile/"><i class="fas fa-user"></i>Профиль: {{user}}</a>
+    <a href="/settings/"><i class="fas fa-cogs"></i> Настройки</a>
   </div>
 
   <!-- Контент -->
@@ -185,8 +186,15 @@
       sidebar.classList.toggle('active', isSidebarActive);
       content.classList.toggle('active', isSidebarActive);
     });
-  </script>
+  function updateTime() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString(); // или toLocaleString() — если хочешь с датой
+    document.getElementById('current-time').textContent = timeString;
+  }
 
+  setInterval(updateTime, 1000); // Обновлять каждую секунду
+  updateTime(); // Запустить сразу
+</script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>

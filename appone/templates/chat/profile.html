@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Профиль{% endblock %}
+
+{% block content %}  <h1 class=" text-light">Мой профиль</h1>
+<div class="container form-container mt-3" style="max-width: 900px; margin: 10px auto 50px; padding: 2rem; background-color: var(--bg); color: var(--fg); border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,1);">
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+
+    <!-- Пользовательская форма -->
+    {% for field in uform %}
+      <div class="mb-3 fw-bold">
+        <label for="{{ field.id_for_label }}" class="form-label text-light">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <!-- Профильная форма -->
+    {% for field in pform %}
+      <div class="mb-3 fw-bold">
+        <label for="{{ field.id_for_label }}" class="form-label text-light">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+          <div class="text-danger small">{{ field.errors|striptags }}</div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-outline-light">Сохранить</button>
+  </form>
+</div>
+{% endblock %}

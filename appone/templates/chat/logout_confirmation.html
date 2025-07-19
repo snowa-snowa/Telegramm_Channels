@@ -1,62 +1,68 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block title %}Подтверждение выхода{% endblock %}
 
 {% block extra_css %}
 <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* убираем скролл */
+    background-color: #0f0f11;
+  }
   .form-container {
-    background-color: #1e1e1e;
-    padding: 30px;
+    background-color: #1e1e2f;
+    padding: 2.5rem;
     border-radius: 10px;
-    box-shadow: 0 0 10px #000;
-    width: 350px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    width: 360px;
+    max-width: 90%;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
-    border: 1px solid #333;
-    margin: 0 auto;
-    margin-top: 100px;  /* Центрируем блок на странице */
   }
-
   .form-container h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #fff;
+    color: #f8f9fa;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
   }
-
-  .form-container button {
-    background-color: #616161;  /* Серый цвет */
-    border: none;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .btn-secondary {
     width: 100%;
-  }
-
-  .form-container button:hover {
-    background-color: #424242;  /* Темно-серый при наведении */
-  }
-
-  .form-container a {
-    color: #90caf9;
-    display: block;
-    margin-top: 15px;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
     font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
-
-  .form-container a:hover {
-    text-decoration: underline;
+  .btn-secondary:hover {
+    background-color: #ffffff;
+    color: #0f0f11;
   }
 </style>
 {% endblock %}
 
 {% block content %}
-  <div class="form-container">
-    <h2>Вы уверены, что хотите выйти?</h2>
-    <form method="post">
-      {% csrf_token %}
-      <button type="submit">Выйти</button>
-    </form>
-    <a href="/">Отмена</a>
-  </div>
+<div class="form-container" style="max-width: 900px; margin: 10px auto 50px; padding: 2rem; background-color: var(--bg); color: var(--fg); border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,1);">
+  <h2>Вы уверены, что хотите выйти?</h2>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-secondary">Выйти</button>
+  </form>
+  <a href="{% url 'chat:conversations_list' %}" class="btn btn-secondary">Отмена</a>
+</div>
 {% endblock %}

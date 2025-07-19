@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Профиль: {{ other_user.username }}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .form-container {
+    max-width: 900px;
+    margin: 10px auto 50px;
+    padding: 2rem;
+    background-color: var(--bg);
+    color: var(--fg);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,1);
+  }
+
+
+    .chat-link, .nav-link {
+      color: #fff !important;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    .chat-link:hover, .nav-link:hover {
+      color: #d63384 !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Профиль</h1>
+<div class="container form-container">
+  <h3>
+    Пользователь: <a href="{% url 'chat:open_conversation' other_user.username %}"
+       class="chat-link">
+      {{ other_user.username }}
+    </a>
+  </h3>
+  <hr>
+  <p><strong>Имя:</strong> {{ other_user.first_name }} {{ other_user.last_name }}</p>
+  <p><strong>Email:</strong> {{ other_user.email }}</p>
+  <p><strong>Телефон:</strong> {{ other_user.profile.phone }}</p>
+  {% if other_user.profile.age %}
+    <p><strong>Возраст:</strong> {{ other_user.profile.age }}</p>
+  {% endif %}
+  {% if other_user.profile.description %}
+    <p><strong>Описание:</strong> {{ other_user.profile.description }}</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block title %}Настройки{% endblock %}
+{% block extra_css %}
+<style>
+  .btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-secondary:hover {
+    background-color: #ffffff;
+    color: #0f0f11;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1>Настройки</h1>
+
+<div class="settings-container" style="max-width: 900px; margin: 10px auto 50px; padding: 2rem; background-color: var(--bg); color: var(--fg); border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,1);">
+
+   <div class="section">
+     <h3>Аккаунт: {{user}}</h3>
+       <hr>
+     {% if user.is_authenticated %}
+       <a href="{% url 'chat:logout' %}" class="btn btn-outline-light me-2">Выйти</a>
+       <a href="{% url 'chat:signup' %}" class="btn btn-outline-light">Создать аккаунт</a>
+     {% else %}
+
+      <a href="{% url 'chat:login' %}" class="btn btn-outline-light me-2">Войти</a>
+      <a href="{% url 'chat:signup' %}" class="btn btn-outline-light">Создать аккаунт</a>
+     {% endif %}
+   </div>
+
+<a href="/" class="text-decoration-none link-light fw-bold">
+    <div class="btn-secondary btn-outline-light text-center py-3 rounded-2 mt-5">
+    <p class="mb-1">Конфиденциальность</p>
+    </div>
+</a>
+<a href="/" class="text-decoration-none link-light fw-bold">
+    <div class="btn-secondary btn-outline-light text-center py-3 rounded-2 mt-3">
+    <p class="mb-1">Премиум версия</p>
+    </div>
+</a>
+<a href="https://t.me/snowa8snowa" class="text-decoration-none link-light fw-bold">
+    <div class="btn-secondary btn-outline-light text-center py-3 rounded-2 mt-3">
+    <p class="mb-1">Связаться с разработчиком</p>
+    </div>
+</a>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Часто задаваемые вопросы</h2>
+
+<div class="accordion bg-dark text-light" id="faqAccordion">
+    <!-- 1 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q1">
+            <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a1">
+                1. Что это за приложение?
+            </button>
+        </h2>
+        <div id="a1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Это мессенджер на основе Telegram, в котором можно общаться только в личных чатах.
+            </div>
+        </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q2">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a2">
+                2. Можно ли создать группу или канал?
+            </button>
+        </h2>
+        <div id="a2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Нет, только личные чаты один на один.
+            </div>
+        </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q3">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a3">
+                3. Почему я не могу отключить звук?
+            </button>
+        </h2>
+        <div id="a3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Звук уведомлений всегда включён — это сделано для того, чтобы вы не пропустили важные сообщения.
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q4">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a4">
+                4. Можно ли включить "Не беспокоить"?
+            </button>
+        </h2>
+        <div id="a4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Пока такой функции нет. Используйте режим "Не беспокоить" в настройках телефона.
+            </div>
+        </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q5">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a5">
+                5. Как сменить имя или аватар?
+            </button>
+        </h2>
+        <div id="a5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Перейдите в настройки → Профиль → Измените имя или фото.
+            </div>
+        </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q6">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a6">
+                6. Могу ли я удалить аккаунт?
+            </button>
+        </h2>
+        <div id="a6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Да, напишите в поддержку через раздел «Помощь», и мы удалим ваш аккаунт вручную.
+            </div>
+        </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q7">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a7">
+                7. Приложение не открывается или зависло. Что делать?
+            </button>
+        </h2>
+        <div id="a7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Попробуйте перезапустить приложение. Если не помогло — переустановите его.
+            </div>
+        </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q8">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a8">
+                8. Как сообщить об ошибке?
+            </button>
+        </h2>
+        <div id="a8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Напишите в службу поддержки — мы постараемся быстро всё исправить.
+            </div>
+        </div>
+    </div>
+
+<div class="accordion-item bg-dark text-light border-secondary">
+        <h2 class="accordion-header" id="q9">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#a9">
+                9. Какая версия приложения?
+            </button>
+        </h2>
+        <div id="a9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body bg-dark text-light">
+                Версия приложения — 0.1.4.
+            </div>
+        </div>
+</div>
+</div>
+
+
+</div>
+</div>
+{% endblock %}
